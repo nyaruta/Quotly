@@ -2,6 +2,8 @@ services:
     bot:
         image: ghcr.io/nyaruta/quote-bot
         env_file: .env
+        volumes:
+            - ./config.json:/app/config.json
         restart: always
         networks:
             - quotly
