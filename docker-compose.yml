@@ -1,0 +1,32 @@
+services:
+    bot:
+        image: ghcr.io/nyaruta/quote-bot
+        env_file: .env
+        restart: always
+        networks:
+            - quotly
+    mongo:
+        restart: always
+        image: mongo
+        volumes:
+            - ./data/db:/data/db
+        networks:
+            - quotly
+    api:
+        image: ghcr.io/nyaruta/quote-api
+        env_file: .env
+        volumes:
+            - ./assets/fonts:/app/assets/fonts
+            - /usr/share/fonts:/usr/share/fonts:ro
+        restart: always
+        networks:
+            - quotly
+    redis:
+        image: redis:alpine
+        restart: always
+        networks:
+            - quotly
+
+networks:
+    quotly:
+        
